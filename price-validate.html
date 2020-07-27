@@ -157,7 +157,7 @@
         console.log(this.condForm);
         if (!Object.values(this.condForm).every(m => !!m)) return;
         const { name, type, color, diff, normal } = this.condForm;
-        const content = `${name} ${type} ${color}  差价：￥${diff}  标准价： ￥${normal}  售价： ￥${normal + diff}`;
+        const content = `${name} ${type} ${color} <span style="color: #409eff">差价：</span>￥${diff} <span style="color: #409eff">标准价：</span> ￥${normal} <span style="color: #409eff">售价：</span> ￥${normal + diff}`;
 
         if (this.results.find(m => m.content === content)) return;
         this.results.unshift({ content: content });
