@@ -161,7 +161,7 @@
       onSubmit: function () {
         console.log(this.condForm);
         const values = Object.values(this.condForm);
-        if (!values.length || !values.every(m => !!m)) return;
+        if (!values.length || values.some(m => !m)) return;
         const { name, type, color, diff, normal } = this.condForm;
         const content = `${name} ${type} ${color} <span class="mark">差价：</span>￥${diff} <span class="mark">标准价：</span> ￥${normal} <span class="mark">售价：</span> ￥${normal + diff}`;
 
