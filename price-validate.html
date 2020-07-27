@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <!-- import CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <style>
+    html,
+    body {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+    }
+
+    #app,
+    .container {
+      height: 100%;
+      background: #e5e9f2;
+    }
+
+    .header {
+      border-bottom: 1px solid #ebebeb;
+      background: #fff;
+    }
+
+    .header .header-title {
+      color: #409eff;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 60px;
+    }
+
+    .main {
+      height: calc(100% - 60px);
+    }
+
+    .card {
+      height: 100%;
+    }
+
+    .box-card {
+      margin-bottom: 10px;
+    }
+
+    .record {
+      color: #d3dce6;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <el-container class="container">
+      <el-header class="header">
+        <span class="header-title">价格比对系统</span>
+      </el-header>
+      <el-main class="main">
+        <section class="card">
+          <el-card class="box-card">
+            <el-form :model="condForm" :rules="rules" ref="condForm" label-width="100px" inline>
+              <el-form-item label="名称" prop="name">
+                <el-input v-model="condForm.name" style="width: 200px;" size="small"></el-input>
+              </el-form-item>
+              <el-form-item label="型号" prop="type">
+                <el-select v-model="condForm.type" style="width: 200px;" size="small">
+                  <el-option v-for="item in types" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="颜色" prop="color">
+                <el-select v-model="condForm.color" style="width: 200px;" size="small">
+                  <el-option v-for="item in colors" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="价格差异" prop="diff">
+                <el-input-number v-model="condForm.diff" size="small" :min="1" :max="10"></el-input-number>
+              </el-form-item>
+              <el-form-item label="标准价" prop="normal">
+                <el-input-number v-model="condForm.normal" size="small" :min="1"></el-input-number>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="onSubmit">比对</el-button>
+                <el-button>重置</el-button>
+              </el-form-item>
+            </el-form>
+          </el-card>
+          <el-card class="box-card">
+            <div v-for="(item, index) in results" :key="index" class="result-item">
+              <p v-html="item.content" :class="{'record': !item.isLatest}"></p>
+            </div>
+          </el-card>
+        </section>
+      </el-main>
+    </el-container>
+  </div>
+</body>
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: function () {
+      return {
+        condForm: {
+          name: "iphone",
+          type: "64 256G",
+          color: "紫色",
+          diff: 8,
+          normal: 3492
+        },
+        rules: {
+          name: [
+            { required: true, message: '请输入名称', trigger: 'blur' },
+            { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+          ],
+        },
+        types: [
+          {
+            value: "250",
+            label: "250G"
+          }
+        ],
+        colors: [
+          {
+            value: "purple",
+            label: "紫色"
+          }
+        ],
+        results: [
+          {
+            isLatest: true,
+            content: `iphone 64 256G 紫色：3500.00 元 <差价： 8元， 标准价： 3492元>`
+          },
+          {
+            isLatest: false,
+            content: `iphone 64 128G 红色：3999.00 元 <差价： 10元， 标准价： 3989元>`
+          }
+        ]
+      }
+    },
+    methods: {
+      onSubmit: function () {
+        this.$refs.condForm.validate(valid => {
+          if (!valid) return;
+          // 处理数据
+
+        })
+      }
+    },
+  })
+</script>
+
+</html>
