@@ -43,7 +43,8 @@
       margin-bottom: 10px;
     }
 
-    .record {
+    .record,
+    .no-result {
       color: #d3dce6;
     }
   </style>
@@ -58,38 +59,34 @@
       <el-main class="main">
         <section class="card">
           <el-card class="box-card">
-            <el-form :model="condForm" :rules="rules" ref="condForm" label-width="100px" inline>
-              <el-form-item label="名称" prop="name">
-                <el-input v-model="condForm.name" style="width: 200px;" size="small"></el-input>
-              </el-form-item>
-              <el-form-item label="型号" prop="type">
-                <el-select v-model="condForm.type" style="width: 200px;" size="small">
-                  <el-option v-for="item in types" :key="item.value" :label="item.label" :value="item.value">
-                  </el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="颜色" prop="color">
-                <el-select v-model="condForm.color" style="width: 200px;" size="small">
-                  <el-option v-for="item in colors" :key="item.value" :label="item.label" :value="item.value">
-                  </el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="价格差异" prop="diff">
-                <el-input-number v-model="condForm.diff" size="small" :min="1" :max="10"></el-input-number>
-              </el-form-item>
-              <el-form-item label="标准价" prop="normal">
-                <el-input-number v-model="condForm.normal" size="small" :min="1"></el-input-number>
+            <el-form :model="condForm" ref="condForm" label-width="100px" inline>
+              <el-form-item :label="item.label" v-for="(item, index) in formItems" :key="`${item.model}-${index}`">
+                <template v-if="item.type === 'input'">
+                  <el-input v-model="condForm[item.model]" style="width: 200px;" size="small"></el-input>
+                </template>
+                <template v-if="item.type === 'select'">
+                  <el-select v-model="condForm[item.model]" style="width: 200px;" size="small">
+                    <el-option v-for="option in item.options" :key="option.value" :label="option.label"
+                      :value="option.value">
+                    </el-option>
+                  </el-select>
+                </template>
+                <template v-if="item.type === 'input-number'">
+                  <el-input-number v-model="condForm[item.model]" size="small" :min="item.min" style="width: 200px;">
+                  </el-input-number>
+                </template>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" @click="onSubmit">比对</el-button>
-                <el-button>重置</el-button>
+                <el-button type="primary" size="small" @click="onSubmit">比对</el-button>
+                <el-button size="small" @click="onReset">重置</el-button>
               </el-form-item>
             </el-form>
           </el-card>
           <el-card class="box-card">
             <div v-for="(item, index) in results" :key="index" class="result-item">
-              <p v-html="item.content" :class="{'record': !item.isLatest}"></p>
+              <p v-html="item.content" :class="{'record': index !== 0}"></p>
             </div>
+            <p v-if="results.length === 0" class="no-result">暂无数据</p>
           </el-card>
         </section>
       </el-main>
@@ -105,52 +102,70 @@
     el: '#app',
     data: function () {
       return {
-        condForm: {
-          name: "iphone",
-          type: "64 256G",
-          color: "紫色",
-          diff: 8,
-          normal: 3492
-        },
-        rules: {
-          name: [
-            { required: true, message: '请输入名称', trigger: 'blur' },
-            { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-          ],
-        },
-        types: [
+        formItems: [
           {
-            value: "250",
-            label: "250G"
-          }
-        ],
-        colors: [
-          {
-            value: "purple",
-            label: "紫色"
-          }
-        ],
-        results: [
-          {
-            isLatest: true,
-            content: `iphone 64 256G 紫色：3500.00 元 <差价： 8元， 标准价： 3492元>`
+            label: "名称",
+            type: "input",
+            model: "name",
+            placeholder: "请输入"
           },
           {
-            isLatest: false,
-            content: `iphone 64 128G 红色：3999.00 元 <差价： 10元， 标准价： 3989元>`
-          }
-        ]
+            label: "型号",
+            type: "select",
+            model: "type",
+            placeholder: "请选择",
+            options: [
+              {
+                value: "250G",
+                label: "250G"
+              }
+            ]
+          },
+          {
+            label: "颜色",
+            type: "select",
+            model: "color",
+            placeholder: "请选择",
+            options: [
+              {
+                value: "紫色",
+                label: "紫色"
+              }
+            ]
+          },
+          {
+            label: "差价",
+            type: "input-number",
+            model: "diff",
+            min: 0,
+            placeholder: ""
+          },
+          {
+            label: "标准价",
+            type: "input-number",
+            model: "normal",
+            min: 0,
+            placeholder: ""
+          },
+        ],
+        condForm: {},
+        results: []
       }
     },
     methods: {
       onSubmit: function () {
-        this.$refs.condForm.validate(valid => {
-          if (!valid) return;
-          // 处理数据
+        console.log(this.condForm);
+        if (!Object.values(this.condForm).every(m => !!m)) return;
+        const { name, type, color, diff, normal } = this.condForm;
+        const content = `${name} ${type} ${color}  差价：￥${diff}  标准价： ￥${normal}  售价： ￥${normal + diff}`;
 
-        })
+        if (this.results.find(m => m.content === content)) return;
+        this.results.unshift({ content: content });
+      },
+      onReset: function () {
+        this.condForm = {};
       }
-    },
+    }
   })
 </script>
 
