@@ -40,12 +40,17 @@
     }
 
     .box-card {
+      position: relative;
       margin-bottom: 10px;
+    }
+
+    .mark {
+      color: #409eff;
     }
 
     .record,
     .no-result {
-      color: #d3dce6;
+      color: #d3dce6 !important;
     }
   </style>
 </head>
@@ -83,10 +88,10 @@
             </el-form>
           </el-card>
           <el-card class="box-card">
-            <div v-for="(item, index) in results" :key="index" class="result-item">
+            <div v-for="(item, index) in resultItems" :key="index" class="result-item">
               <p v-html="item.content" :class="{'record': index !== 0}"></p>
             </div>
-            <p v-if="results.length === 0" class="no-result">暂无数据</p>
+            <p v-if="resultItems.length === 0" class="no-result">暂无数据</p>
           </el-card>
         </section>
       </el-main>
@@ -149,18 +154,19 @@
           },
         ],
         condForm: {},
-        results: []
+        resultItems: []
       }
     },
     methods: {
       onSubmit: function () {
         console.log(this.condForm);
-        if (!Object.values(this.condForm).every(m => !!m)) return;
+        const values = Object.values(this.condForm);
+        if (!values.length || values.some(m => !m)) return;
         const { name, type, color, diff, normal } = this.condForm;
-        const content = `${name} ${type} ${color} <span style="color: #409eff">差价：</span>￥${diff} <span style="color: #409eff">标准价：</span> ￥${normal} <span style="color: #409eff">售价：</span> ￥${normal + diff}`;
+        const content = `${name} ${type} ${color} <span class="mark">差价：</span>￥${diff} <span class="mark">标准价：</span> ￥${normal} <span class="mark">售价：</span> ￥${normal + diff}`;
 
-        if (this.results.find(m => m.content === content)) return;
-        this.results.unshift({ content: content });
+        if (this.resultItems.find(m => m.content === content)) return;
+        this.resultItems.unshift({ content: content });
       },
       onReset: function () {
         this.condForm = {};
