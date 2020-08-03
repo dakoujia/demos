@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>测试</title>
+  <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+  <link rel="stylesheet" type="text/css" href="http://unpkg.com/iview/dist/styles/iview.css">
+  <script type="text/javascript" src="http://vuejs.org/js/vue.min.js"></script>
+  <script type="text/javascript" src="http://unpkg.com/iview/dist/iview.min.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/vue-infinite-scroll"></script>
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    #app {
+      margin: 50px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <i-button type="primary" @click="add" style="margin-bottom: 20px">+</i-button>
+    <Modal v-model="modal1" title="Common Modal dialog box title">
+      <div ref="outdiv" v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" style="height: 500px; overflow-y : auto;"
+        infinite-scroll-distance="10">
+        <!-- <ul>
+           <li v-for="(item, index) of data1" :key="index">
+            <p>{{item.name}}</p>
+            <p>{{item.age}}</p>
+            <p>{{item.address}}</p>
+            <p>{{item.date}}</p>
+          </li>
+        </ul> -->
+        <i-table :columns="columns1" :data="data1" height="500"></i-table>
+      </div>
+    </Modal>
+
+  </div>
+
+</body>
+<script type="text/javascript">
+  var count = 0;
+  new Vue({
+    el: '#app',
+    data() {
+      return {
+        modal1: true,
+        columns1: [
+          {
+            title: 'Name',
+            key: 'name'
+          },
+          {
+            title: 'Age',
+            key: 'age'
+          },
+          {
+            title: 'Address',
+            key: 'address'
+          }
+        ],
+        data1: [
+          {
+            name: 'John Brown',
+            age: 18,
+            address: 'New York No. 1 Lake Park',
+            date: '2016-10-03'
+          },
+          {
+            name: 'Jim Green',
+            age: 24,
+            address: 'London No. 1 Lake Park',
+            date: '2016-10-01'
+          },
+          {
+            name: 'Joe Black',
+            age: 30,
+            address: 'Sydney No. 1 Lake Park',
+            date: '2016-10-02'
+          },
+          {
+            name: 'Jon Snow',
+            age: 26,
+            address: 'Ottawa No. 2 Lake Park',
+            date: '2016-10-04'
+          },
+          {
+            name: 'Jon Snow',
+            age: 26,
+            address: 'Ottawa No. 2 Lake Park',
+            date: '2016-10-04'
+          },
+          {
+            name: 'Jon Snow',
+            age: 26,
+            address: 'Ottawa No. 2 Lake Park',
+            date: '2016-10-04'
+          },
+          {
+            name: 'Jon Snow',
+            age: 26,
+            address: 'Ottawa No. 2 Lake Park',
+            date: '2016-10-04'
+          },
+          {
+            name: 'Jon Snow',
+            age: 26,
+            address: 'Ottawa No. 2 Lake Park',
+            date: '2016-10-04'
+          },
+          {
+            name: 'Jon Snow',
+            age: 26,
+            address: 'Ottawa No. 2 Lake Park',
+            date: '2016-10-04'
+          },
+          {
+            name: 'Jon Snow',
+            age: 26,
+            address: 'Ottawa No. 2 Lake Park',
+            date: '2016-10-04'
+          },
+          {
+            name: 'Jon Snow',
+            age: 26,
+            address: 'Ottawa No. 2 Lake Park',
+            date: '2016-10-04'
+          },
+          {
+            name: 'Jon Snow',
+            age: 26,
+            address: 'Ottawa No. 2 Lake Park',
+            date: '2016-10-04'
+          },
+          {
+            name: 'Jon Snow',
+            age: 26,
+            address: 'Ottawa No. 2 Lake Park',
+            date: '2016-10-04'
+          }
+        ],
+        data2: [
+          {
+            name: 'Jon Snow',
+            age: 26,
+            address: 'Ottawa No. 2 Lake Park',
+            date: '2016-10-04'
+          }, {
+            name: 'Jon Snow',
+            age: 26,
+            address: 'Ottawa No. 2 Lake Park',
+            date: '2016-10-04'
+          },
+          {
+            name: 'Jon Snow',
+            age: 26,
+            address: 'Ottawa No. 2 Lake Park',
+            date: '2016-10-04'
+          },
+          {
+            name: 'Jon Snow',
+            age: 26,
+            address: 'Ottawa No. 2 Lake Park',
+            date: '2016-10-04'
+          },
+          {
+            name: 'Jon Snow',
+            age: 26,
+            address: 'Ottawa No. 2 Lake Park',
+            date: '2016-10-04'
+          },
+          {
+            name: 'Jon Snow',
+            age: 26,
+            address: 'Ottawa No. 2 Lake Park',
+            date: '2016-10-04'
+          },
+          {
+            name: 'Jon Snow',
+            age: 26,
+            address: 'Ottawa No. 2 Lake Park',
+            date: '2016-10-04'
+          },
+          {
+            name: 'Jon Snow',
+            age: 26,
+            address: 'Ottawa No. 2 Lake Park',
+            date: '2016-10-04'
+          },
+          {
+            name: 'Jon Snow',
+            age: 26,
+            address: 'Ottawa No. 2 Lake Park',
+            date: '2016-10-04'
+          },
+          {
+            name: 'Jon Snow',
+            age: 26,
+            address: 'Ottawa No. 2 Lake Park',
+            date: '2016-10-04'
+          },
+          {
+            name: 'Jon Snow',
+            age: 26,
+            address: 'Ottawa No. 2 Lake Park',
+            date: '2016-10-04'
+          },
+          {
+            name: 'Jon Snow',
+            age: 26,
+            address: 'Ottawa No. 2 Lake Park',
+            date: '2016-10-04'
+          },
+          {
+            name: 'Jon Snow',
+            age: 26,
+            address: 'Ottawa No. 2 Lake Park',
+            date: '2016-10-04'
+          }
+        ],
+        data3: [],
+        busy: false,
+        c: 26,
+      }
+    },
+    mounted: function () {
+      // this.loadMore();
+    },
+    methods: {
+      // 调整滚动条位置
+      adjustScrollBar() {
+        const ch = this.$refs['outdiv'].clientHeight;
+        const st = this.$refs['outdiv'].scrollTop;
+        const sh = this.$refs['outdiv'].scrollHeight;
+        console.log(ch);
+        console.log(st);
+        console.log(sh);
+        if (ch + st == sh) {
+          this.$refs['outdiv'].scrollTop = st - ch;
+        }
+      },
+      loadMore: function () {
+        this.busy = true;
+
+        console.log(count++);
+        setTimeout(() => {
+          this.data1.push(...this.data2);
+          // this.adjustScrollBar();
+          debugger;
+          if (this.data1.length > 100) {
+            this.busy = true;
+          } else {
+            this.busy = false;
+          }
+        }, 1000);
+      },
+      add: function () {
+        this.c++;
+        
+        this.data1.push(...this.data2);
+      }
+    }
+  })  
+</script>
+
+</html>
