@@ -15,3 +15,4 @@ some demoes
 - vue-array.html 判断同一个数组渲染两遍顺序和 key 有没有关系
 - mouseover-demo.html 动态计算鼠标移入显示浮窗位置（跟随鼠标）
 - treeDemo.html 对树形结构数据进行处理（返回每一层级的 id 值，可以返回层级关系及末级 id 数组）
+- demos-vite 一个 vite 的 demo
