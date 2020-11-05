@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>demo</title>
+  <link rel="stylesheet" type="text/css" href="http://unpkg.com/view-design/dist/styles/iview.css">
+  <script type="text/javascript" src="http://vuejs.org/js/vue.min.js"></script>
+  <script type="text/javascript" src="http://unpkg.com/view-design/dist/iview.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <ul>
+      <li v-for="item in array" :key="item.id">{{item.name}}</li>
+      <li v-for="item in array" :key="item.id">{{item.label}}</li>
+    </ul>
+  </div>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        array: [
+          {
+            id: 1,
+            name: "aaa",
+            label: "AAA"
+          },
+          {
+            id: 2,
+            name: "bbb"
+          },
+          {
+            id: 3,
+            name: "ccc",
+            label: "CCC"
+          }
+        ]
+      },
+      methods: {
+      }
+    })
+  </script>
+</body>
+
+</html>

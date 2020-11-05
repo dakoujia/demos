@@ -1,0 +1,129 @@
+<html>
+  <p>测试</p>
+  <script >
+    const data = {
+  label: "CECEP Hubei Wufeng Beifengya Wind Power Plant Phase II",
+  id: 2,
+  parentId: 1,
+  children: [
+    {
+      label: "Line1",
+      id: 4,
+      parentId: 2,
+      children: [
+        { label: "Unit52", id: 52, selectedKey: true, parentId: 4 },
+        { label: "Unit53", id: 53, selectedKey: true, parentId: 4 },
+        { label: "Unit54", id: 54, selectedKey: true, parentId: 4 },
+        { label: "Unit55", id: 55, selectedKey: true, parentId: 4 },
+        { label: "Unit56", id: 56, selectedKey: true, parentId: 4 },
+        { label: "Unit57", id: 57, selectedKey: true, parentId: 4 },
+        { label: "Unit58", id: 58, selectedKey: true, parentId: 4 },
+        { label: "Unit59", id: 59, selectedKey: true, parentId: 4 },
+        { label: "Unit60", id: 60, selectedKey: true, parentId: 4 },
+        { label: "Unit61", id: 61, selectedKey: true, parentId: 4 },
+        { label: "Unit62", id: 62, selectedKey: true, parentId: 4 },
+        { label: "Unit63", id: 63, selectedKey: true, parentId: 4 },
+        { label: "Unit64", id: 64, selectedKey: true, parentId: 4 },
+        { label: "Unit65", id: 65, selectedKey: true, parentId: 4 },
+        { label: "Unit66", id: 66, selectedKey: true, parentId: 4 },
+        { label: "Unit67", id: 67, selectedKey: true, parentId: 4 },
+        { label: "Unit68", id: 68, selectedKey: true, parentId: 4 },
+        { label: "Unit51", id: 51, selectedKey: true, parentId: 4 },
+      ],
+      selectedKey: true,
+    },
+    {
+      label: "Line2",
+      id: 5,
+      parentId: 2,
+      children: [
+        { label: "Unit69", id: 69, selectedKey: true, parentId: 5 },
+        { label: "Unit70", id: 70, selectedKey: false, parentId: 5},
+        { label: "Unit71", id: 71, selectedKey: false, parentId: 5 },
+        { label: "Unit72", id: 72, selectedKey: false, parentId: 5},
+        { label: "Unit73", id: 73, selectedKey: false, parentId: 5 },
+        { label: "Unit74", id: 74, selectedKey: false, parentId: 5 },
+        { label: "Unit75", id: 75, selectedKey: false, parentId: 5 },
+        { label: "Unit76", id: 76, selectedKey: false, parentId: 5 },
+        { label: "Unit77", id: 77, selectedKey: false, parentId: 5},
+        { label: "Unit88", id: 88, selectedKey: false, parentId: 5 },
+        { label: "Unit89", id: 89, selectedKey: false, parentId: 5 },
+        { label: "Unit94", id: 94, selectedKey: false, parentId: 5},
+        { label: "Unit95", id: 95, selectedKey: false, parentId: 5 },
+        { label: "Unit92", id: 92, selectedKey: false, parentId: 5 },
+      ],
+      selectedKey: true,
+    },
+  ],
+  selectedKey: true,
+}
+const node = {label: "Line1",id: 2,selectedKey: true};
+
+function flattenTree (treeData = [], keys, level = 0) {
+  return treeData.reduce(
+    (arr, x) => [
+      ...arr,
+      keys.reduce((o, k) => ((o[k] = x[k]), o), {
+        level
+      }),
+      ...flattenTree(x.children || [], keys, level + 1)
+    ],
+    []
+  );
+}
+
+function Tree(arr) {
+  if (arr && arr instanceof Array) {
+    this._arr = arr;
+    this._arrMap = {};
+    //首先将节点信息遍历一遍，放到一个Map里，便于后续检索
+    for (let i = 0; i < arr.length; i++) {
+      let n = arr[i];
+      if (n && n.id) {
+        this._arrMap[n.id] = n;
+      }
+    }
+    //建立父子关系
+    for (let i = 0; i < arr.length; i++) {
+      let n = arr[i];
+      let p = this._arrMap[n.parentId];
+      if (p) {
+        p.children = p.children || [];
+        p.children.push(n);
+      }
+    }
+  }
+}
+Tree.prototype = {
+  constructor: Tree,
+  //获得以某一个节点信息，其中已经包含了所有树状关系。本节点的子菜单在节点的children属性里
+  getNode: function(id) {
+    return this._arrMap[id];
+  },
+  //获得某一个节点从指定节点到此节点的路径
+  getPath: function(id) {
+    let _a = [];
+    //当前节点
+    let _currentNode = this._arrMap[id];
+    while (_currentNode) {
+      _a.unshift(_currentNode);
+      _currentNode = this._arrMap[_currentNode.parentId];
+    }
+    return _a;
+  }
+};
+
+function getTreeIds(treeData=[], selectedId="", startLevel = 0) {
+  const treeArry = treeData instanceof Array ? treeData : new Array(treeData);
+  const flattenData = flattenTree(treeArry, ["id", "label", "parentId", "selectedKey"], startLevel);
+  const flattenIds = new Tree(flattenData);
+
+  const selectedIds = flattenIds.getPath(selectedId).map(m => m.id);
+
+  const currentTree = flattenIds.getNode(selectedId);
+  const allIds = flattenTree([currentTree], ["id", "label", "parentId", "selectedKey", "children"], startLevel).filter(m => m.selectedKey).filter(m => !m.children).map(m => m.id);
+  console.log(allIds);
+}
+  getTreeIds(data, node.id)
+</script> 
+</html>
