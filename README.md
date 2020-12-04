@@ -16,3 +16,4 @@ some demoes
 - mouseover-demo.html 动态计算鼠标移入显示浮窗位置（跟随鼠标）
 - treeDemo.html 对树形结构数据进行处理（返回每一层级的 id 值，可以返回层级关系及末级 id 数组）
 - demos-vite 一个 vite 的 demo
+- vue-test vue 用于测试的 demo 项目集合
