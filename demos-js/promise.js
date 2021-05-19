@@ -34,6 +34,15 @@ myPromise.prototype.then = function (onFullfilled, onRejected) {
       break;
   }
 };
+
+myPromise.prototype.finally = function (callback) {
+  let P = this.constructor;
+  return this.then(
+    value => P.resolve(callback()).then(() => value),
+    reason => P.resolve(callback()).then(() => { throw reason })
+  );
+};
+
 // 测试
 const p = new myPromise((resolve, reject) => {
   resolve(1);
