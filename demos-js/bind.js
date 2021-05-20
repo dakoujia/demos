@@ -1,15 +1,12 @@
 // bind
 Function.prototype.myBind = function (context) {
-  if (typeof this != "function") {
+  if (typeof this !== "function") {
     throw Error("not a function");
   }
   let self = this;
   const args = [...arguments].slice(1);
   return function () {
-    return self.apply(
-      context,
-      args.concat(Array.prototype.slice.call(arguments))
-    );
+    return self.apply(context, [...args, ...Array.prototype.slice.call(arguments)])
   };
 };
 let objA = {
