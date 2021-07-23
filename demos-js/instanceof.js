@@ -1,4 +1,5 @@
 function myInstanceof(left, right) {
+  if (left === null) return false;
   let proto = left.__proto__;
   let prototype = right.prototype;
   while (true) {
@@ -17,3 +18,4 @@ let b = [];
 console.log(myInstanceof(a, A));
 console.log(myInstanceof(b, Array));
 console.log(myInstanceof(a, Array));
+console.log(myInstanceof(null, Object));

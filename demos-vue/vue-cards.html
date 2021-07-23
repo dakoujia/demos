@@ -1,148 +1,164 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <meta charset="utf-8">
-  <title>demo</title>
-  <link rel="stylesheet" type="text/css" href="http://unpkg.com/view-design/dist/styles/iview.css">
-  <script type="text/javascript" src="http://vuejs.org/js/vue.min.js"></script>
-  <script type="text/javascript" src="http://unpkg.com/view-design/dist/iview.min.js"></script>
-  <style>
-    .card-wrap {
-      padding: 10px;
-    }
-    .card {
-      width: 100%;
-      height: 150px;
-      background-color: #ff0000; /* 浏览器不支持的时候显示 */
-      background-image: linear-gradient(to left,rgba(255,255,255,.5),#ff0000);
-    }
-    .card .card-body {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 100px;
-      padding: 0 10px;
-    }
-    .card .card-footer {
-      height: 50px;
-      line-height: 50px;
-      padding: 0 10px;
-      color: #fff;
-      border-top: 1px solid #fff;
-      box-sizing: border-box;
-    }
-    .body-main {
-      color: #fff;
-    }
-    .body-main .num{
-      font-size: 24px;
-      font-weight: 700;
-    }
-    .body-icon {
-      color: #fff;
-    }
-  </style>
-</head>
-
-<body>
-  <div id="app">
-    <div class="card-wrap">
-      <Row :gutter="16">
-        <i-col style="padding: 10px;" span="6" v-for="(item, index) in cards">
-        <Card class="card" :key="index" :padding="0" :style="{'background-image': `linear-gradient(to left,rgba(255,255,255,.5),${item.color})`, 'background-color': item.color}">
-            <div class="card-body">
-              <div class="body-main">
-                <p class="num">{{item.number}}</p>
-                <p class="title">{{item.title}}</p>
-              </div>
-              <div class="body-icon">
-                <Icon type="md-people" size="40"/>
-              </div>
-            </div>
-            <ul class="card-footer">
-              <li>我也不知道是什么</li>
-            </ul>
-          </Card>
-        </i-col>
-      </Row>
-    </div>
-  </div>
-  <script>
-    new Vue({
-      el: '#app',
-      data: {
-        cards: [
-          {
-            number: 100,
-            title: "在线人数",
-            icon: "",
-            extra: "",
-            mark: "",
-            color: "#0037ff"
-          },
-          {
-            number: 101,
-            title: "在线人数",
-            icon: "",
-            extra: "",
-            mark: "",
-            color: "#092db1"
-          },
-          {
-            number: 102,
-            title: "在线人数",
-            icon: "",
-            extra: "",
-            mark: "",
-            color: "#09b14c"
-          },
-          {
-            number: 103,
-            title: "在线人数",
-            icon: "",
-            extra: "",
-            mark: "",
-            color: "#5109b1"
-          },
-          {
-            number: 104,
-            title: "在线人数",
-            icon: "",
-            extra: "",
-            mark: "",
-            color: "#b10976"
-          },
-          {
-            number: 105,
-            title: "在线人数",
-            icon: "",
-            extra: "",
-            mark: "",
-            color: "#8c0821"
-          },
-          {
-            number: 106,
-            title: "在线人数",
-            icon: "",
-            extra: "",
-            mark: "",
-            color: "#c5c00f"
-          },
-          {
-            number: 107,
-            title: "在线人数",
-            icon: "",
-            extra: "",
-            mark: "",
-            color: "#c56b0f"
-          },
-        ]
-      },
-      methods: {
+  <head>
+    <meta charset="utf-8" />
+    <title>demo</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="http://unpkg.com/view-design/dist/styles/iview.css"
+    />
+    <script
+      type="text/javascript"
+      src="http://vuejs.org/js/vue.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="http://unpkg.com/view-design/dist/iview.min.js"
+    ></script>
+    <style>
+      .card-wrap {
+        padding: 10px;
       }
-    })
-  </script>
-</body>
+      .card {
+        width: 100%;
+        height: 150px;
+        background-color: #ff0000; /* 浏览器不支持的时候显示 */
+        background-image: linear-gradient(
+          to left,
+          rgba(255, 255, 255, 0.5),
+          #ff0000
+        );
+      }
+      .card .card-body {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100px;
+        padding: 0 10px;
+      }
+      .card .card-footer {
+        height: 50px;
+        line-height: 50px;
+        padding: 0 10px;
+        color: #fff;
+        border-top: 1px solid #fff;
+        box-sizing: border-box;
+      }
+      .body-main {
+        color: #fff;
+      }
+      .body-main .num {
+        font-size: 24px;
+        font-weight: 700;
+      }
+      .body-icon {
+        color: #fff;
+      }
+    </style>
+  </head>
 
+  <body>
+    <div id="app">
+      <div class="card-wrap">
+        <Row :gutter="16">
+          <i-col style="padding: 10px" span="6" v-for="(item, index) in cards">
+            <Card
+              class="card"
+              :key="index"
+              :padding="0"
+              :style="{'background-image': `linear-gradient(to left,rgba(255,255,255,.5),${item.color})`, 'background-color': item.color}"
+            >
+              <div class="card-body">
+                <div class="body-main">
+                  <p class="num">{{item.number}}</p>
+                  <p class="title">{{item.title}}</p>
+                </div>
+                <div class="body-icon">
+                  <Icon type="md-people" size="40" />
+                </div>
+              </div>
+              <ul class="card-footer">
+                <li>我也不知道是什么</li>
+              </ul>
+            </Card>
+          </i-col>
+        </Row>
+      </div>
+    </div>
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          cards: [
+            {
+              number: 100,
+              title: "在线人数",
+              icon: "",
+              extra: "",
+              mark: "",
+              color: "#0037ff",
+            },
+            {
+              number: 101,
+              title: "在线人数",
+              icon: "",
+              extra: "",
+              mark: "",
+              color: "#092db1",
+            },
+            {
+              number: 102,
+              title: "在线人数",
+              icon: "",
+              extra: "",
+              mark: "",
+              color: "#09b14c",
+            },
+            {
+              number: 103,
+              title: "在线人数",
+              icon: "",
+              extra: "",
+              mark: "",
+              color: "#5109b1",
+            },
+            {
+              number: 104,
+              title: "在线人数",
+              icon: "",
+              extra: "",
+              mark: "",
+              color: "#b10976",
+            },
+            {
+              number: 105,
+              title: "在线人数",
+              icon: "",
+              extra: "",
+              mark: "",
+              color: "#8c0821",
+            },
+            {
+              number: 106,
+              title: "在线人数",
+              icon: "",
+              extra: "",
+              mark: "",
+              color: "#c5c00f",
+            },
+            {
+              number: 107,
+              title: "在线人数",
+              icon: "",
+              extra: "",
+              mark: "",
+              color: "#c56b0f",
+            },
+          ],
+        },
+        methods: {},
+      });
+    </script>
+  </body>
 </html>

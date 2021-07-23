@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>attr-listeners</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="http://unpkg.com/view-design/dist/styles/iview.css"
+    />
+    <script
+      type="text/javascript"
+      src="http://vuejs.org/js/vue.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="http://unpkg.com/view-design/dist/iview.min.js"
+    ></script>
+  </head>
+
+  <body>
+    <div id="app">
+      A{{msg}}
+      <my-button :msg="msg" :testa="testA" :testb="testB"></my-button>
+    </div>
+    <script>
+      let vm = new Vue({
+        el: "#app",
+        data: {
+          msg: "(A)",
+          testA: {
+            label: "aaa",
+            value: 111,
+          },
+          testB: {
+            label: "bbb",
+            value: 222,
+          },
+        },
+        components: {
+          MyButton: {
+            // props: ['msg'],
+            template: `<div>B<my-input v-bind="$attrs"></my-input></div>`,
+            components: {
+              MyInput: {
+                // props: ["msg"],
+                template:
+                  "<div v-on:click='onEmit'><span>C{{$attrs.msg}}</span><span>{{$attrs.testa.label}}</span><span>{{$attrs.testb.label}}</span></div>",
+                methods: {
+                  onEmit() {
+                    this.$emit("on-click", "被点击了孙子组件");
+                  },
+                },
+              },
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
