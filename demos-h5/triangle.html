@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>triangle</title>
+        <style>
+            .triangle {
+                position: relative;
+                width: 182px;
+                height: 132px;
+                margin: 20px;
+                background: #000;
+            }
+            .triangle:after {
+                content: '';
+                position: absolute;
+                top: 0;
+                right: 0;
+                border-width: 30px;
+                border-style: solid;
+                border-color: #00226a #00226a transparent transparent;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="triangle"></div>
+    </body>
+</html>
