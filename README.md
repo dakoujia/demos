@@ -19,3 +19,4 @@ some demoes
 -   vue-test vue 用于测试的 demo 项目集合
 -   canvas-eg 通过 canvas 画一些简单的图形实现
 -   triangle.html 三角形角标
+-   img.html 通过给图片地址添加一个请求 headers 比如添加 token 的解决方案

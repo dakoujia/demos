@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Proxy Image</title>
+        <script>
+            Object.defineProperty(Image.prototype, 'authsrc', {
+                writable: true,
+                enumerable: true,
+                configurable: true,
+            })
+            window.onload = () => {
+                let img = document.getElementById('img')
+                let url = img.getAttribute('authsrc')
+                let request = new XMLHttpRequest()
+                request.responseType = 'blob'
+                request.open('get', url, true)
+                request.setRequestHeader('token', 'admin@123456')
+                request.onreadystatechange = e => {
+                    if (
+                        request.readyState == XMLHttpRequest.DONE &&
+                        request.status == 200
+                    ) {
+                        img.src = window.URL.createObjectURL(request.response)
+                        img.onload = () => {
+                            window.URL.revokeObjectURL(img.src)
+                        }
+                    }
+                }
+                request.send(null)
+            }
+        </script>
+    </head>
+    <body>
+        <img
+            width="100"
+            height="100"
+            id="img"
+            authsrc="http://192.168.1.217:5050/live/image/preview-120"
+        />
+    </body>
+</html>
