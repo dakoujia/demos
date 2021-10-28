@@ -20,3 +20,4 @@ some demoes
 -   canvas-eg 通过 canvas 画一些简单的图形实现
 -   triangle.html 三角形角标
 -   img.html 通过给图片地址添加一个请求 headers 比如添加 token 的解决方案
+-   demos-vue-pdf vue-pdf 插件的使用，在浏览器上添加 pdf 预览功能
