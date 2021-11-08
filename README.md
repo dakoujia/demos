@@ -1,4 +1,4 @@
-# demo
+# demos
 
 some demoes
 
