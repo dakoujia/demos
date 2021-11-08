@@ -21,3 +21,4 @@ some demoes
 -   triangle.html 三角形角标
 -   img.html 通过给图片地址添加一个请求 headers 比如添加 token 的解决方案
 -   demos-vue-pdf vue-pdf 插件的使用，在浏览器上添加 pdf 预览功能
+-   demos-vue3.0 这是初始化的一个 vue3.0 + vite 的项目 用于后续 vue3.0 的学习
