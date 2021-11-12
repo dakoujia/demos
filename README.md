@@ -22,3 +22,5 @@ some demoes
 -   img.html 通过给图片地址添加一个请求 headers 比如添加 token 的解决方案
 -   demos-vue-pdf vue-pdf 插件的使用，在浏览器上添加 pdf 预览功能
 -   demos-vue3.0 这是初始化的一个 vue3.0 + vite 的项目 用于后续 vue3.0 的学习
+-   demos-vue3.0-ts 这是 vue3.0 + vite + ts 的一个项目 用来后续做这方面的 demo 开发 `yarn create @vitejs/app project-name --template vue`
+-   ...
