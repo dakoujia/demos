@@ -2,7 +2,7 @@
 
 some demoes
 
-##example
+## example
 
 -   canvas-smile.html canvas 的简易 demo
 -   vue-cards.html iview card 的应用
