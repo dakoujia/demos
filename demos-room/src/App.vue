@@ -44,11 +44,11 @@ export default {
             this.initCamera()
             this.initRender()
             this.initLight()
+
             this.initObject()
-
+        },
+        render() {
             this.renderer.render(this.scene, this.camera)
-
-            this.renderHeatmap()
         },
         // 渲染热力图
         renderHeatmap() {
@@ -172,6 +172,7 @@ export default {
                     100,
                     0
                 )
+                this.render()
             })
         },
         // 创建墙
