@@ -25,4 +25,6 @@ some demoes
 -   demos-vue3.0-ts 这是 vue3.0 + vite + ts 的一个项目 用来后续做这方面的 demo 开发 `yarn create @vitejs/app project-name --template vue`
 -   demos-room 这是通过 three.js 和 heatmap 渲染的 3D 视图房间中热力图分布
 -   demos-utils 这里记录一些常写的自定义组件、自定义指令、以及一些好用的工具函数，方便后续开发中使用，源码在 src 中，例子在 examples 中
+-   scroll-items计算容器中可视范围内有多少个固定高度的元素，考虑到滚动情况累加上滚动后的元素个数
+![alt scroll-item](../assets/examples/scroll-items.png)
 -   ...

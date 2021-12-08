@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>scroll itmes</title>
+        <script src="https://cdn.bootcss.com/vue/2.5.0/vue.js"></script>
+        <style>
+            html,
+            body,
+            #app {
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+            .container {
+                position: relative;
+                width: 400px;
+                height: 700px;
+                margin: 40px;
+                background-color: aquamarine;
+                border: 1px solid #ccc;
+                overflow: auto;
+            }
+            .item {
+                width: 300px;
+                height: 40px;
+                padding: 10px;
+                margin-left: 10px;
+                margin-bottom: 10px;
+                color: #fff;
+                background-color: brown;
+                border: 1px solid #999;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <div class="container">
+                <div class="item" v-for="(item, index) in items" :key="index">
+                    {{index}}
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    items: [
+                        1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+                        0,
+                    ],
+                }
+            },
+            mounted() {
+                // 获取容器高度
+                const containerDom = document.querySelector('.container')
+                const containerHeight = containerDom.clientHeight
+                // console.log('containerHeight: ', containerHeight)
+
+                // 获取item高度
+                const itemsDom = document.querySelectorAll('.item')
+                const itemHeight = itemsDom[0].offsetHeight
+                // console.log('itemHeight: ', itemHeight)
+                // 加上margin-bottom
+                const oneHeight = itemHeight + 10
+
+                // 计算出容器中最多放多少个
+                const max = Math.ceil(containerHeight / oneHeight)
+                // console.log('max: ', max)
+
+                // 判断第一个索引的scrollTop离容器的距离
+                containerDom.onscroll = function (e) {
+                    const scrollTop = containerDom.scrollTop
+                    // console.log('scrollTop: ', scrollTop)
+                    // 判断scrollTop中包含几个itemHeight
+                    const count = Math.floor(scrollTop / oneHeight)
+
+                    // 总的个数
+                    const total = max + count
+                    console.log('total: ', total)
+                }
+            },
+        })
+    </script>
+</html>
