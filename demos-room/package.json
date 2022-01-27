@@ -10,7 +10,7 @@
   "dependencies": {
     "core-js": "^2.6.5",
     "heatmap.js": "^2.0.5",
-    "three": "^0.135.0",
+    "three": "^0.137.0",
     "tthreebsp": "^1.0.9",
     "tween": "^0.9.0",
     "vue": "^2.6.10",
